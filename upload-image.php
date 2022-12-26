@@ -17,7 +17,7 @@
       <div id="upload">
         <form method="post" enctype="multipart/form-data">
           <input type="file" name="upload" accept=".png, .gif, .jpg" required>
-          <input type="submit" name="submit" onclick="showNote()" value="Upload">
+          <input type="submit" name="submit value="Upload">
         </form>
       </div>
       <div class="good" id="note" onmousedown='hideNote()'>
@@ -28,14 +28,21 @@
       </div>-->
     </div>
     <?php
+      require "backend/lib.php";
+      echo "<script>document.getElementById('note').style.visibility='hidden';</script>";
       // SAVE IMAGE INTO DATABASE
       if (isset($_FILES["upload"])) {
-        require "backend/lib.php";
-        $_DBIMG->save($_FILES["upload"]["name"], file_get_contents($_FILES["upload"]["tmp_name"]));
+        // VALIDATE IF NOT EMPTY
+        if(!empty($_FILES["upload_file"]["name"])){
+          $fileName = $_FILES["upload_file"]["name"];
+          //VALIDATE IF FILE ALREADY EXISTS
+          if(file_exists($fileName)) {
+            echo "<span>File already exists!</span>";
+          }
+          $_DBIMG->save($_FILES["upload"]["name"], file_get_contents($_FILES["upload"]["tmp_name"]));
+          echo "<script>document.getElementById('note').style.visibility='visible';</script>";
+        }
       } 
     ?>
-    <script>
-      
-    </script>
   </body>
 </html>

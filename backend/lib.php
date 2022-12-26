@@ -57,6 +57,7 @@ class DBImg {
   }
 }
 
+
 // DATABASE SETTINGS
 define("DB_HOST", "localhost");
 define("DB_NAME", "pic_story");
