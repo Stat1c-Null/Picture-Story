@@ -57,6 +57,7 @@ class DBImg {
   }
 }
 
+$uploaded = false;
 
 // DATABASE SETTINGS
 define("DB_HOST", "localhost");

@@ -6,7 +6,7 @@
   border-radius: 10px;
 }
 
-form, div.note {
+form {
   width: 23%;
 }
 form {
@@ -34,7 +34,6 @@ input[type=submit] {
   text-align: center;
   padding: 10px;
   width: 20%;
-  
 }
 
 div.bad {

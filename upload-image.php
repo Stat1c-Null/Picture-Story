@@ -29,18 +29,28 @@
     </div>
     <?php
       require "backend/lib.php";
-      echo "<script>document.getElementById('note').style.visibility='hidden';</script>";
+      if($uploaded == false) {
+        echo "<script>document.getElementById('note').style.visibility='hidden';</script>";
+      }
+      //echo "<script>document.getElementById('note').style.visibility='hidden';</script>";
       // SAVE IMAGE INTO DATABASE
       if (isset($_FILES["upload"])) {
         // VALIDATE IF NOT EMPTY
-        if(!empty($_FILES["upload_file"]["name"])){
-          $fileName = $_FILES["upload_file"]["name"];
+        if(!empty($_FILES["upload"]["name"])){
+          $fileName = $_FILES["upload"]["name"];
+          echo "<div class='alert alert-danger' role='alert'>" . $fileName . "</div>";
           //VALIDATE IF FILE ALREADY EXISTS
           if(file_exists($fileName)) {
-            echo "<span>File already exists!</span>";
+            //echo "<script>document.getElementById('note1').style.visibility='visible';</script>";
+            $uploaded = false;
+            echo "<div class='alert alert-danger' role='alert'>This file already exists!</div>";
+          } else {
+            $uploaded = true;
+            $_DBIMG->save($_FILES["upload"]["name"], file_get_contents($_FILES["upload"]["tmp_name"]));
+            echo "<script>document.getElementById('note').style.visibility='visible';</script>";
+            $_FILES["upload"]["name"] = NULL;
+            //I think the bug is that file name that is been uploaded is not been reset back to NULL
           }
-          $_DBIMG->save($_FILES["upload"]["name"], file_get_contents($_FILES["upload"]["tmp_name"]));
-          echo "<script>document.getElementById('note').style.visibility='visible';</script>";
         }
       } 
     ?>
